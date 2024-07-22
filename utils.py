@@ -5,7 +5,6 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-
 def qa_agent(openai_api_key, memory, uploaded_file, question):
     model = ChatOpenAI(model="gpt-4-turbo", openai_api_key=openai_api_key)
     file_content = uploaded_file.read()
@@ -20,7 +19,7 @@ def qa_agent(openai_api_key, memory, uploaded_file, question):
         separators=["\n", "。", "！", "？", "，", "、", ""]
     )
     texts = text_splitter.split_documents(docs)
-    embeddings_model = OpenAIEmbeddings()
+    embeddings_model = OpenAIEmbeddings(openai_api_key=openai_api_key)
     db = FAISS.from_documents(texts, embeddings_model)
     retriever = db.as_retriever()
     qa = ConversationalRetrievalChain.from_llm(

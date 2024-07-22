@@ -1,8 +1,6 @@
 import streamlit as st
-
 from langchain.memory import ConversationBufferMemory
 from utils import qa_agent
-
 
 st.title("📑 AI智能PDF問答工具")
 
@@ -39,3 +37,4 @@ if "chat_history" in st.session_state:
             st.write(ai_message.content)
             if i < len(st.session_state["chat_history"]) - 2:
                 st.divider()
+                
